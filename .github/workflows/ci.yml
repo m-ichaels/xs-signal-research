@@ -1,0 +1,21 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  test-and-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e .[test]
+      - name: unit tests (features, purged CV, inference, risk model, costs, book) and one end-to-end pass on the committed data
+        run: python -m pytest -q
+      - name: quick pipeline (2019-2026, small learner) and every downstream script
+        run: |
+          python -m xsig all --quick
+          python scripts/plots.py
+          python scripts/summarize.py
+          python scripts/report.py
+          python scripts/make_notebook.py --execute
+          python -m xsig sql "SELECT COUNT(*) AS rows, COUNT(DISTINCT symbol) AS names FROM pred_equity"
