@@ -1,0 +1,14 @@
+{
+  "first_year": 2010,
+  "last_year": 2026,
+  "horizon": 5,
+  "horizons": [1, 2, 5, 10, 21],
+  "n_boot": 2000,
+  "cv_splits": 5,
+  "learner": {"ridge_alpha": 10.0, "gbm_iter": 150, "gbm_lr": 0.05, "gbm_depth": 3, "gbm_leaf": 200, "seed": 7},
+  "book": {"capital": 1e9, "gross": 1.0, "w_max": 0.02},
+  "capital_grid": [1e8, 2.5e8, 5e8, 1e9, 2.5e9, 5e9, 1e10, 2.5e10],
+  "transfer_capital": {"equity": 1e9, "etf": 1e9, "futures": 1e9},
+  "cost_models": ["routed", "observed"],
+  "quick": {"first_year": 2019, "last_year": 2026, "n_boot": 200, "cv_splits": 3, "gbm_iter": 40, "horizons": [1, 5, 21], "capital_grid": [1e8, 1e9, 1e10]}
+}
